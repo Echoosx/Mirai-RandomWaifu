@@ -1,5 +1,15 @@
-# mirai-console-plugin-template
+# Mirai-RandomWaifu
 
-[Mirai Console](https://github.com/mamoe/mirai-console) 插件模板, 使用 Kotlin + Gradle.
+> 基于 [Mirai Console](https://github.com/mamoe/mirai-console) 的插件
 
-[如何使用](https://github.com/project-mirai/how-to-use-plugin-template)
+[![Release Version](https://img.shields.io/badge/release-v0.1.0-green)](https://github.com/Echoosx/Mirai-RandomWaifu/releases)
+
+# 指令
+`今日老婆` or `waifu`
+# 功能
+随机返回一个二次元角色头像
+
+from https://www.thiswaifudoesnotexist.net/
+
+## 安装
+从 [Releases](https://github.com/Echoosx/Mirai-RandomWaifu/releases) 下载`jar`并将其放入`plugins`文件夹中
