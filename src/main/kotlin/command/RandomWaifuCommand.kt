@@ -43,6 +43,7 @@ object RandomWaifuCommand: SimpleCommand(
         val mutex = Mutex()
         mutex.withLock {
             sendMessage(At(user!!)+image_.await())
+            // 延迟5s
             delay(5000)
         }
     }
