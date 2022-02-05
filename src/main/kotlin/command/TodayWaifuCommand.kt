@@ -1,7 +1,5 @@
 package org.echoosx.mirai.plugin.command
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -17,20 +15,21 @@ import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.echoosx.mirai.plugin.RandomWaifu
-import org.echoosx.mirai.plugin.utils.Waifu
-import java.lang.reflect.Type
+import org.echoosx.mirai.plugin.command.RandomWaifuCommand.waifuList
+import java.time.LocalDate
+import kotlin.random.Random
 
-object RandomWaifuCommand: SimpleCommand(
+object TodayWaifuCommand: SimpleCommand(
     RandomWaifu,
-    "randomwaifu","随机老婆",
-    description = "随机老婆"
+    "waifu","今日老婆",
+    description = "今日老婆"
 ) {
-    var waifuList:List<Waifu> = listOf()
-    init {
-        val jsonString = RandomWaifu.dataFolder.resolve("waifu.json").readText()
-        val waifuListType: Type = object : TypeToken<ArrayList<Waifu>>() {}.type
-        waifuList = Gson().fromJson(jsonString,waifuListType)
-    }
+//    private var waifuList:List<Waifu> = listOf()
+//    init {
+//        val jsonString = RandomWaifu.dataFolder.resolve("waifu.json").readText()
+//        val waifuListType: Type = object : TypeToken<ArrayList<Waifu>>() {}.type
+//        waifuList = Gson().fromJson(jsonString,waifuListType)
+//    }
 
     @OptIn(ConsoleExperimentalApi::class, ExperimentalCommandDescriptors::class)
     override val prefixOptional: Boolean = true
@@ -39,9 +38,11 @@ object RandomWaifuCommand: SimpleCommand(
     @Handler
     suspend fun CommandSender.handle(){
         try {
-            val waifu = waifuList.random()
-
+            val localDate = LocalDate.now()
+            val random = kotlin.math.abs(Random(user!!.id + localDate.year + localDate.monthValue + localDate.dayOfMonth).nextInt()) % waifuList.size
+            val waifu = waifuList[random]
             val waifuUrl = waifu.img
+
             val image_ = coroutineScope {
                 async {
                     val client = OkHttpClient()
